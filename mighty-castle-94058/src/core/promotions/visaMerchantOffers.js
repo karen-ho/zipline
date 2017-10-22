@@ -55,6 +55,10 @@ class VisaMerchantOffers {
 			}
 
 			let body = JSON.parse(bodyStr);
+			if (!body || !body.userDetails) {
+				return reject(body);
+			}
+
 			let userId = body.userDetails.userId;
 			let cardId = ((body.cards || [])[0] || {}).cardId;
 

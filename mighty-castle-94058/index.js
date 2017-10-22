@@ -149,7 +149,6 @@ app.post('/api/v1/stores/:storeId/promotions/enroll', (req, res) => {
 	        "cardNumber": "4321114156363002",
 	        "nameOnCard": "US-BANK"
 	        "contactType": "SMS",
-	        "contactValue": "54893534",
 	        "contactCountryCode": "1",
 	        "isContactVerified": "false",
 	        "isPreferred": "true",
@@ -169,7 +168,7 @@ app.post('/api/v1/promotions/:offerId', (req, res) => {
 		}],
 		contacts: [{
 			type: req.body.contactType,
-			value: req.body.contactValue,
+			value: req.body.userKey,
 			countryCode: req.body.contactCountryCode,
 			isContactVerified: req.body.isContactVerified,
 			isPreferred: req.body.isPreferred
@@ -189,14 +188,14 @@ app.get('/api/v1/shopping-lists/:shoppingListId', (req, res) => {
 	let shoppingListId = req.params.shoppingListId;
 	let shoppingListController = new ShoppingListController();
 	shoppingListController.get(shoppingListId).then(resp => {
-		res.send(resp);
+		res.send({ items: resp });
 	}, resp => {
 		res.send('failed... ' + resp);
 	});
 });
 
 app.post('/api/v1/shopping-lists', (req, res) => {
-	let shoppingList = req.body;
+	let shoppingList = req.body.items;
 	let shoppingListController = new ShoppingListController();
 	shoppingListController.create({items: shoppingList}).then(resp => {
 		res.send(resp);
@@ -207,7 +206,7 @@ app.post('/api/v1/shopping-lists', (req, res) => {
 
 // suggestions
 app.post('/api/v1/suggestions', (req, res) => {
-	let cart = req.body;
+	let cart = req.body.items;
 	let suggestionController = new SuggestionController();
 	suggestionController.getSuggestions(cart).then(resp => {
 		res.send(resp);
