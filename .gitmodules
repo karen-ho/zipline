@@ -1,0 +1,6 @@
+[submodule "shopping"]
+	path = shopping
+	url = https://github.com/karen-ho/shopping
+[submodule "mighty-castle-94058"]
+	path = mighty-castle-94058
+	url = https://git.heroku.com/mighty-castle-94058.git
